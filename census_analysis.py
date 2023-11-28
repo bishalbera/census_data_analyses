@@ -5,9 +5,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 urlretrieve(
-    'https://api.census.gov/data/2022/acs/acs1?get=NAME,B01003_001E,B06011_001E,B98001_001E&for=state:*', 'census.json')
+    'https://api.census.gov/data/2022/acs/acs1?get=NAME,B01003_001E,B06011_001E,B98001_001E,B01001_002E,B01001_026E&for=state:*', 'census.json')
 
 census_df_raw = pd.read_json('census.json')
+
+# total male B01001_002E
+# total female B01001_026E
+
 
 # Rename columns directly and create a copy of the DataFrame
 census_df = census_df_raw.rename(columns={
