@@ -18,7 +18,9 @@ census_df = census_df_raw.rename(columns={
     0: 'Name',
     1: 'Total Population',
     2: 'Median Income',
-    3: 'Housing Unit'
+    3: 'Housing Unit',
+    4: 'Total Male',
+    5: 'Total Female'
 }).copy()
 
 # Drop the first row as it contains column names
@@ -30,9 +32,9 @@ census_df = census_df.reset_index(drop=True)
 # Drop the last column
 census_df = census_df.iloc[:, :-1]
 
-# print(census_df)
+print(census_df)
 
-#Total Population by state
+# Total Population by state
 # plt.figure(figsize=(15, 8))
 # sns.barplot(x='Total Population', y='Name', data=census_df, palette='viridis')
 # plt.title('Total Population by State')
