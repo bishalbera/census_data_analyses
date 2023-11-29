@@ -4,8 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-urlretrieve(
-    'https://api.census.gov/data/2022/acs/acs1?get=NAME,B01003_001E,B06011_001E,B98001_001E,B01001_002E,B01001_026E&for=state:*', 'census.json')
+# urlretrieve(
+#     'https://api.census.gov/data/2022/acs/acs1?get=NAME,B01003_001E,B06011_001E,B98001_001E,B01001_002E,B01001_026E&for=state:*', 'census.json')
 
 census_df_raw = pd.read_json('census.json')
 
@@ -49,12 +49,12 @@ census_df = census_df.iloc[:, :-1]
 # plt.show()
 
 #Relation bw population and median income
-# plt.figure(figsize=(12,6))
-# sns.scatterplot(data= census_df, x='Total Population', y='Median Income')
-# plt.title('Population vs Median Income by State')
-# plt.xlabel('Total Population')
-# plt.ylabel('Median Income')
-# plt.show()
+plt.figure(figsize=(12,6))
+sns.scatterplot(data= census_df, x='Total Population', y='Median Income')
+plt.title('Population vs Median Income by State')
+plt.xlabel('Total Population')
+plt.ylabel('Median Income')
+plt.show()
 
 # correlation_matrix = census_df[[
 #     'Total Population', 'Median Income', 'Housing Unit']].astype(float).corr()
@@ -81,3 +81,29 @@ plt.xlabel('Population')
 plt.ylabel('State')
 plt.legend()
 plt.show()
+
+# gender ratio
+census_df['Gender Ratio'] = census_df['Total Male'] / census_df['Total Female']
+plt.figure(figsize=(15, 8))
+plt.bar(census_df['Name'], census_df['Gender Ratio'], alpha=0.7)
+plt.axhline(y=1, linestyle='--', label='Equal Gender Ratio', color= 'red')
+plt.xlabel('State')
+plt.ylabel('Gender Ratio')
+plt.title('Gender Ratio(From Male to Female)')
+plt.legend()
+plt.show()
+
+# Identify the state with the highest and lowest male and female populations
+max_male_state = census_df.loc[census_df['Total Male'].idxmax(), 'Name']
+min_male_state = census_df.loc[census_df['Total Male'].idxmin(), 'Name']
+
+max_female_state = census_df.loc[census_df['Total Female'].idxmax(), 'Name']
+min_female_state = census_df.loc[census_df['Total Female'].idxmin(), 'Name']
+
+print(f"State with The Highest Male Population: {max_male_state}")
+print(f"State with The Lowest Male Population: {min_male_state}")
+
+print(f"State with The Highest Female Population: {max_female_state}")
+print(f"State with The Lowest Female Population: {min_female_state}")
+
+
