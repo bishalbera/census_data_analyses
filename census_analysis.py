@@ -9,9 +9,6 @@ urlretrieve(
 
 census_df_raw = pd.read_json('census.json')
 
-# total male B01001_002E
-# total female B01001_026E
-
 
 # Rename columns directly and create a copy of the DataFrame
 census_df = census_df_raw.rename(columns={
@@ -32,7 +29,7 @@ census_df = census_df.reset_index(drop=True)
 # Drop the last column
 census_df = census_df.iloc[:, :-1]
 
-print(census_df)
+# print(census_df)
 
 # Total Population by state
 # plt.figure(figsize=(15, 8))
@@ -59,9 +56,28 @@ print(census_df)
 # plt.ylabel('Median Income')
 # plt.show()
 
-correlation_matrix = census_df[[
-    'Total Population', 'Median Income', 'Housing Unit']].astype(float).corr()
-plt.figure(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
-plt.title('Correlation Matrix')
+# correlation_matrix = census_df[[
+#     'Total Population', 'Median Income', 'Housing Unit']].astype(float).corr()
+# plt.figure(figsize=(10, 8))
+# sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
+# plt.title('Correlation Matrix')
+# plt.show()
+
+# print(census_df.info())
+
+census_df['Total Male'] = pd.to_numeric(
+    census_df['Total Male'], errors='coerce')
+census_df['Total Female'] = pd.to_numeric(
+    census_df['Total Female'], errors='coerce')
+census_df['Name'] = census_df['Name'].astype(str)
+
+# population distribution by gender
+plt.figure(figsize=(15, 12))
+plt.barh(census_df['Name'], census_df['Total Male'], label='Male', alpha=0.7)
+plt.barh(census_df['Name'], census_df['Total Female'],
+         left=census_df['Total Male'], label='Female', alpha=0.7)
+plt.title('Population Distribution by Gender')
+plt.xlabel('Population')
+plt.ylabel('State')
+plt.legend()
 plt.show()
