@@ -41,12 +41,12 @@ census_df = census_df.iloc[:, :-1]
 # plt.show()
 
 #Median Income across State 
-# plt.figure(figsize=(15,8))
-# sns.histplot(census_df['Median Income'], bins=30, kde=True,  color='skyblue')
-# plt.xlabel('Median Income')
-# plt.ylabel('Frequency')
-# plt.title('Distribution of Median Income across States')
-# plt.show()
+plt.figure(figsize=(15,8))
+sns.histplot(census_df['Median Income'], bins=30, kde=True,  color='skyblue')
+plt.xlabel('Median Income')
+plt.ylabel('Frequency')
+plt.title('Distribution of Median Income across States')
+plt.show()
 
 #Relation bw population and median income
 plt.figure(figsize=(12,6))
